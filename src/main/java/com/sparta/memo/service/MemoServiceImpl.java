@@ -6,15 +6,14 @@ import com.sparta.memo.dto.ResponseMemoDto;
 import com.sparta.memo.dto.UpdateMemoDto;
 import com.sparta.memo.entity.Memo;
 import com.sparta.memo.repository.MemoRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemoServiceImpl implements MemoService{
 
     private final MemoRepository memoRepository;
@@ -34,7 +33,7 @@ public class MemoServiceImpl implements MemoService{
     }
 
     @Override
-    public ResponseMemoDto getMemoById(Long id) throws IllegalArgumentException {
+    public ResponseMemoDto getMemoById(Long id) {
         Memo memo = memoRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 메모가 없습니다.")
         );
@@ -59,7 +58,8 @@ public class MemoServiceImpl implements MemoService{
     }
 
     @Override
-    public HashMap<String,String> deleteMemoById(Long id, DeleteMemoDto deleteMemoDto) throws IllegalArgumentException {
+    public HashMap<String,String> deleteMemoById(Long id, DeleteMemoDto deleteMemoDto) {
+        // HTTPSTATUS.OK 반환할수도 있음
         HashMap<String , String> response= new HashMap<String,String>();
         response.put("status", "ok");
 
