@@ -49,8 +49,9 @@ public class MemoServiceImpl implements MemoService{
 
         if(memo.isCorrectPassword(updateMemoDto.getPassword())){
             memo.update(updateMemoDto);
-            memoRepository.save(memo);
-            return ResponseMemoDto.of(memo);
+            Memo editedMemo = memoRepository.save(memo);
+
+            return ResponseMemoDto.of(editedMemo);
         }else {
             throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
         }
@@ -62,7 +63,6 @@ public class MemoServiceImpl implements MemoService{
         // HTTPSTATUS.OK 반환할수도 있음
         HashMap<String , String> response= new HashMap<String,String>();
         response.put("status", "ok");
-
         Memo memo = memoRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 메모가 없습니다.")
         );
