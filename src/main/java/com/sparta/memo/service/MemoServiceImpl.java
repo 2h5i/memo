@@ -20,7 +20,7 @@ public class MemoServiceImpl implements MemoService{
 
     @Override
     public List<ResponseMemoDto> getMemoList() {
-        return ResponseMemoDto.of(memoRepository.findAll());
+        return ResponseMemoDto.of(memoRepository.findAllByOrderByCreatedAtDesc());
     }
 
     @Override
